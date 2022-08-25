@@ -1,12 +1,11 @@
 import hashlib
 import pickle
 from datetime import datetime
-from flask import Flask, session
-from flask_session import Session
 
 from flask import (Flask, render_template)
 
 app = Flask(__name__)
+
 r = {}
 
 
@@ -39,15 +38,6 @@ def search_voters(street_name):
 
     return render_template('search_voters.html', voters=voters, voter_ids=voter_ids, dt=dt, street_name=street_name)
 
-
-@app.route('/search/voter/<string:voter_id>', methods=['GET'])
-def search_voter(street_name, voter_id):
-
-    street_name_hash = session.get('street_name_hash', 'not set')
-    if street_name_hash == 'not set':
-        return render_template('error.html', error='No street name hash set')
-    return render_template('voter.html', voter=r[street_name_hash][voter_id])
-    
 def md5_hash(string):
 
     return str(hashlib.md5(string.encode('utf-8')).hexdigest())
