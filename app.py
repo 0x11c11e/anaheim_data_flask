@@ -8,7 +8,6 @@ app = Flask(__name__)
 
 r = {}
 
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -46,4 +45,4 @@ def md5_hash(string):
 if __name__ == '__main__':
     with open('data/data.pickle', 'rb') as handle:
         r = pickle.load(handle)
-    app.run(debug=True)
+    app.run(debug=True, port=80, host='0.0.0.0')
