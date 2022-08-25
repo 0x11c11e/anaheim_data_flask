@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block head%}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="title is-1 is-centered">{{ street_name }}</p>
+                {% for voter_id in voter_ids %}
+                <div class="card">
+                    <div class="card-content">
+                      <div class="media">
+                        <div class="media-left">
+                          <figure class="image is-48x48">
+                            {% if voters[voter_id][38] %}
+                                {% if 'Dem' in voters[voter_id][38] %}
+                                    <img src="/static/img/democrat.png" alt="Placeholder image">
+                                {% elif 'Rep' in voters[voter_id][38] %}
+                                    <img src="/static/img/republican.png" alt="Placeholder image">
+                                {% else %}
+                                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                                {% endif %}
+                            {% endif %}
+                          </figure>
+                        </div>
+                        <div class="media-content">
+                          <p class="title is-4">{{ voters[voter_id][5] }} {{ voters[voter_id][6] }} {{ voters[voter_id][4] }}
+                          <p class="subtitle is-6">{{ voters[voter_id][9] }}</p>
+                        </div>
+                      </div>
+                  
+                      <div class="content">
+                        <ul>
+                            <li>Plotical Party: {{ voters[voter_id][38] or 'N/A'}}</li>
+                            <li>Phone: {{ voters[voter_id][25] or 'N/A'}}</li>
+                            <li>Email: {{ voters[voter_id][26] or 'N/A'}}</li>
+                            <li>District: {{ voters[voter_id][61] or 'N/A'}}</li>
+                        </ul>
+                        <time datetime="2016-1-1">
+                            {{ dt }}
+                            </time>
+                      </div>
+                    </div>
+                    <footer class="card-footer">
+                        <button class="card-footer-item button is-link">Click here to read more about {{ voters[voter_id][5] }}</a>
+                      </footer>
+                  </div>
+                  <br />
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

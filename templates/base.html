@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <section class="section">
+      <div class="container">
+          <div class="field is-horizontal">
+            <div class="field-body">
+              <div class="field">
+                <label class="label">Enter full or partial name of the street</label>
+                <div class="control">
+                  <input class="input" type="text" id="street-name" name="streetname" placeholder="Street Name" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="has-text-centered mb-50">
+            <button type="button" id="search-btn" class="button is-link is-large">Search</button>
+          </div>
+          <div class="content has-text-centered mt-5">
+            <article class="message is-danger">
+              <div class="message-header">
+                <p>Term of Use & Copyright</p>
+              </div>
+              <div class="message-body">
+                Copyright © 2022 by <a href="https://www.lorrigalloway.com">Lorri Galloway</a>.<br /> 
+                All rights reserved. <br />
+                No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods. <br />
+                For Internal Use Only—Not For External Distribution. This software contains proprietary and confidential information. <br />
+                IP Address, Physical Location and Internet Provider are stored. <br />
+
+                <br />
+              </div>
+            </article>
+          </div>
+      </div>
+    </section>
+    {% block content %}
+    
+    {% endblock %}
+    <script defer src="/static/js/main.js"></script>  </body>
+</html>
