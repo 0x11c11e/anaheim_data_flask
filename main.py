@@ -52,4 +52,8 @@ def read_pickle():
             for voter_id in r[key].keys():
                 print(r[key][voter_id])
 
-read_pickle()
+def get_uuid():
+    import uuid
+    return uuid.UUID(int=uuid.getnode())
+
+print(get_uuid())

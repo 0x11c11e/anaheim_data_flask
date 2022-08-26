@@ -44,9 +44,16 @@
                             </time>
                       </div>
                     </div>
-                    <footer class="card-footer">
-                        <button class="card-footer-item button is-link">Click here to read more about {{ voters[voter_id][5] }}</a>
+                    <footer class="card-footer has-text-centered">
+                      <div class="block is-inline-block">
+                        <button 
+                          id="search-voter-btn"
+                          class="card-footer-item button is-primary is-rounded">
+                          <a href="/search/voter/{{ voters[voter_id][0] }}">Click here to read more about {{ voters[voter_id][5] }}</a>
+                        </button>
+                      </div>
                       </footer>
+                    </form>
                   </div>
                   <br />
                 {% endfor %}
