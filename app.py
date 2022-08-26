@@ -65,6 +65,6 @@ def get_uuid():
 
 if __name__ == '__main__':
     port = 5000
-    if get_uuid() in '00000000-0000-0000-0000-f3b8ff4fee68':
+    if get_uuid() == '00000000-0000-0000-0000-f3b8ff4fee68':
         port = 80
     app.run(debug=True, port=port, host='0.0.0.0')
