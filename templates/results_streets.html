@@ -1,28 +1,22 @@
-{% extends "base.html" %}
-
-{% block head%}
-
-{% endblock %}
-
-{% block content %}   
-     <div class='container'>
-        <div class="content has-text-centered is-medium">
-            <h6>Contains {{ results }} street address</h6>
-        </div>
-         <div class='columns is-mobile is-centered'>
-             <div class='column is-6'>
-                {% for street in streets %}
-                 <div class='list'>
-                     <ol>
-                         <div class='list-item tags'>
-                             <li>
-                                <a href="/search/voters/{{ street }}">{{ street }} street</a>
-                            </li>
-                         </div>
-                     </ol>
-                 </div>
-                 {% endfor %}
-             </div>
-         </div>
+{% extends "base.html" %} {% block head%} {% endblock %} {% block content %}
+<div class="container">
+  <div class="content has-text-centered is-medium">
+    <h6>Contains {{ results }} street address</h6>
+  </div>
+  <div class="columns is-mobile is-centered">
+    <div class="column is-6">
+      <div class="list">
+        <ol>
+          {% for street in streets %}
+          <div class="list-item tags">
+            <li>
+              <a href="/search/voters/{{ street }}">{{ street }} street</a>
+            </li>
+          </div>
+          {% endfor %}
+        </ol>
+      </div>
     </div>
+  </div>
+</div>
 {% endblock %}
