@@ -10,7 +10,7 @@
           {% for street in streets %}
           <div class="list-item tags">
             <li>
-              <a href="/search/voters/{{ street }}">{{ street }} street</a>
+              <a href="/search/voters/{{ street }}">{{ street }} street</a> (<a href="/search/voters/printable/{{ street_name }}/{{ street }}">click here for printable format</a>)
             </li>
           </div>
           {% endfor %}

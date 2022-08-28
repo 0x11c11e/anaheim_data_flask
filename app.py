@@ -35,8 +35,28 @@ def search_streets(streetname):
 
     return render_template('results_streets.html', streets=streets, md5_hash=md5_hash, results=len(streets))
 
+@app.route('/search/voters/printable/<string:street_name>', methods=['GET'])
+def search_voters_printable(street_name):
+    grouped_voters, street_name, dt = search_voters(street_name)
+
+    return render_template('search_voters_printable.html', grouped_voters=grouped_voters, street_name=street_name, dt=dt)
 
 @app.route('/search/voters/<string:street_name>', methods=['GET'])
+def search_voters_html(street_name):
+    grouped_voters, street_name, dt = search_voters(street_name)
+    
+    return render_template('search_voters.html', grouped_voters=grouped_voters, street_name=street_name, dt=dt)
+
+
+@app.route('/search/voter/<string:voter_id>', methods=['GET'])
+def search_voter(voter_id):
+    street_name_hash = session.get('street_name_hash', 'not set')
+    if street_name_hash in 'not set':
+        return render_template('error.html', error='No street name hash found in session')
+    voter = r[street_name_hash][voter_id]
+
+    return render_template('voter.html', voter=voter)
+
 def search_voters(street_name):
     voters = {}
     street_name_hash = md5_hash(street_name)
@@ -60,19 +80,8 @@ def search_voters(street_name):
         elif int(str(group).split(' ')[0]) % 2 == 1:
             grouped_odds[group] = grouped_voters[group]
     grouped_voters = grouped_odds | grouped_evens
-    
-    return render_template('search_voters.html', grouped_voters=grouped_voters, street_name=street_name, dt=dt)
 
-
-@app.route('/search/voter/<string:voter_id>', methods=['GET'])
-def search_voter(voter_id):
-    street_name_hash = session.get('street_name_hash', 'not set')
-    if street_name_hash in 'not set':
-        return render_template('error.html', error='No street name hash found in session')
-    voter = r[street_name_hash][voter_id]
-
-    return render_template('voter.html', voter=voter)
-
+    return grouped_voters, street_name, dt
 
 def md5_hash(string):
 
