@@ -1,63 +1,58 @@
-{% extends "base.html" %}
-
-{% block head%}
-
-{% endblock %}
-
-{% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p class="title is-1 is-centered">Street Name: {{ street_name }} Drive</p>
-                {% for voter_id in voter_ids %}
-                <div class="card">
-                    <div class="card-content">
-                      <div class="media">
-                        <div class="media-left">
-                          <figure class="image is-48x48">
-                            {% if voters[voter_id][38] %}
-                                {% if 'Dem' in voters[voter_id][38] %}
-                                    <img src="/static/img/democrat.png" alt="Placeholder image">
-                                {% elif 'Rep' in voters[voter_id][38] %}
-                                    <img src="/static/img/republican.png" alt="Placeholder image">
-                                {% else %}
-                                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-                                {% endif %}
-                            {% endif %}
-                          </figure>
-                        </div>
-                        <div class="media-content">
-                          <p class="title is-4">{{ voters[voter_id][5] }} {{ voters[voter_id][6] }} {{ voters[voter_id][4] }}
-                          <p class="subtitle is-6">{{ voters[voter_id][9] }}</p>
-                        </div>
-                      </div>
-                  
-                      <div class="content">
-                        <ul>
-                            <li>Plotical Party: {{ voters[voter_id][38] or 'N/A'}}</li>
-                            <li>Phone: {{ voters[voter_id][25] or 'N/A'}}</li>
-                            <li>Email: {{ voters[voter_id][26] or 'N/A'}}</li>
-                            <li>District: {{ voters[voter_id][61] or 'N/A'}}</li>
-                        </ul>
-                        <time datetime="2016-1-1">
-                            {{ dt }}
-                            </time>
-                      </div>
-                    </div>
-                    <footer class="card-footer has-text-centered">
-                      <div class="block is-inline-block">
-                        <button 
-                          id="search-voter-btn"
-                          class="card-footer-item button is-primary is-rounded">
-                          <a href="/search/voter/{{ voters[voter_id][0] }}">Click here to read more about {{ voters[voter_id][5] }}</a>
-                        </button>
-                      </div>
-                      </footer>
-                    </form>
-                  </div>
-                  <br />
-                {% endfor %}
-            </div>
+{% extends "base.html" %} {% block head%} {% endblock %} {% block content %}
+<div class="container">
+  <p class="title is-1 is-centered">Street Name: {{ street_name }} Drive</p>
+  {% for grouped_voter in grouped_voters %}
+  <div class="card">
+    <header class="card-header has-background-primary">
+      <p class="card-header-title">{{ grouped_voter }}</p>
+      <button class="card-header-icon" aria-label="more options">
+        <span class="icon">
+          <i class="fas fa-angle-down" aria-hidden="true"></i>
+        </span>
+      </button>
+    </header>
+    {% for voter in grouped_voters[grouped_voter] %}
+    <div class="card-content mx-6 px-6">
+      <div class="media">
+        <div class="media-left">
+          <figure class="image is-48x48">
+            {% if voter[38] %} {% if 'Dem' in voter[38] %}
+            <img src="/static/img/democrat.png" alt="Placeholder image" />
+            {% elif 'Rep' in voter[38] %}
+            <img src="/static/img/republican.png" alt="Placeholder image" />
+            {% else %}
+            <img
+              src="https://bulma.io/images/placeholders/96x96.png"
+              alt="Placeholder image"
+            />
+            {% endif %} {% endif %}
+          </figure>
         </div>
+        <div class="media-content">
+          <p class="title is-4">{{ voter[5] }} {{ voter[6] }} {{ voter[4] }}</p>
+          <p class="subtitle is-6">{{ voter[9] }}</p>
+        </div>
+      </div>
+
+      <div class="content">
+        <ul>
+          <li>Plotical Party: {{ voter[38] or 'N/A'}}</li>
+          <li>Phone: {{ voter[25] or 'N/A'}}</li>
+          <li>Email: {{ voter[26] or 'N/A'}}</li>
+          <li>District: {{ voter[61] or 'N/A'}}</li>
+        </ul>
+        <time datetime="2016-1-1"> {{ dt }} </time>
+      </div>
+      <footer class="card-footer has-background-link">
+        <a
+          href="/search/voter/{{ voter[0] }}"
+          class="card-footer-item has-text-primary-light"
+          >Read More About {{ voter[5] }} {{ voter[6] }} {{ voter[4] }}</a
+        >
+      </footer>
     </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}
