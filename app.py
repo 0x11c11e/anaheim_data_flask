@@ -52,7 +52,15 @@ def search_voters(street_name):
         else:
             grouped_voters[voters[voter_id][9]].append(voters[voter_id])
     grouped_voters = collections.OrderedDict(sorted(grouped_voters.items()))
-
+    grouped_odds = {}
+    grouped_evens = {}
+    for group in grouped_voters.keys():
+        if int(str(group).split(' ')[0]) % 2 == 0:
+            grouped_evens[group] = grouped_voters[group]
+        elif int(str(group).split(' ')[0]) % 2 == 1:
+            grouped_odds[group] = grouped_voters[group]
+    grouped_voters = grouped_odds | grouped_evens
+    
     return render_template('search_voters.html', grouped_voters=grouped_voters, street_name=street_name, dt=dt)
 
 
