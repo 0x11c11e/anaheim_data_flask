@@ -25,6 +25,7 @@
               <th>Middle Name</th>
               <th>Last Name</th>
               <th>Political Party</th>
+              <th>Phone Number</th>
               <th>Y</th>
               <th>NH</th>
               <th>N</th>
@@ -40,10 +41,11 @@
             {% for voter in grouped_voters[grouped_voter] %}
             <tr>
               <td></td>
-              <td>{{ voter[5] }}</td>
-              <td>{{ voter[6] }}</td>
-              <td>{{ voter[4] }}</td>
-              <td>{{ voter[38] }}</td>
+              <td>{{ voter[5] or 'N/A' }}</td>
+              <td>{{ voter[6] or 'N/A' }}</td>
+              <td>{{ voter[4] or 'N/A' }}</td>
+              <td>{{ voter[38] or 'N/A' }}</td>
+              <td>{{ voter[25] or 'N/A' }}</td>
               <td></td>
               <td></td>
               <td></td>
