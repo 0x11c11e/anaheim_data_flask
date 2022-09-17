@@ -15,9 +15,13 @@ Session(app)
 
 
 r = {}
+rr = {}
 with open('data/data.pickle', 'rb') as handle:
     r = pickle.load(handle)
-
+try:
+    rr = pickle.load(open("data/checkbox.pickle", "rb"))
+except (OSError, IOError) as e:
+    pickle.dump(rr, open("data/checkbox.pickle", "wb"))
 
 @app.route('/')
 def index():
@@ -45,7 +49,7 @@ def search_voters_printable(street_name):
 def search_voters_html(street_name):
     grouped_voters, street_name, dt = search_voters(street_name)
     
-    return render_template('search_voters.html', grouped_voters=grouped_voters, street_name=street_name, dt=dt)
+    return render_template('search_voters.html', grouped_voters=grouped_voters, street_name=street_name, dt=dt, rr=rr)
 
 
 @app.route('/search/voter/<string:voter_id>', methods=['GET'])
@@ -83,10 +87,21 @@ def search_voters(street_name):
 
     return grouped_voters, street_name, dt
 
+@app.route('/search/voter/is_checked/<string:checkbox_id>', methods=['GET'])
+def voter_checkbox(checkbox_id):
+    try:
+        rr[checkbox_id] = not rr[checkbox_id]
+    except KeyError:
+        rr[checkbox_id] = True
+        
+    pickle.dump(rr, open("data/checkbox.pickle", "wb"))
+    print(rr[checkbox_id])
+    
+    return('', 200)
+    
 def md5_hash(string):
 
     return str(hashlib.md5(string.encode('utf-8')).hexdigest())
-
 
 def get_uuid():
 
