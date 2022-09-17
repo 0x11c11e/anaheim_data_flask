@@ -1,6 +1,5 @@
 {% extends "base.html" %} {% block head%} {% endblock %} {% block content %}
 <div class="container">
-  <div class="row">
     <div class="col-md-12">
       <div class="control">
         <input
@@ -38,6 +37,32 @@
             </span>
           </button>
         </header>
+        <div class="content">
+          <label class="checkbox">
+            <input id="{{ (grouped_voter+'Y') | replace(" ", "-") }}" {% if
+            (grouped_voter+'Y') | replace(" ", "-") in rr %} {% if
+            rr[((grouped_voter+'Y') | replace(" ", "-"))] == True %} {{
+            'checked' }} {% endif %} {% endif %} type="checkbox" /> Y
+          </label>
+          <label class="checkbox">
+            <input id="{{ (grouped_voter+'N') | replace(" ", "-") }}" {% if
+            (grouped_voter+'N') | replace(" ", "-") in rr %} {% if
+            rr[((grouped_voter+'N') | replace(" ", "-"))] == True %} {{
+            'checked' }} {% endif %} {% endif %} type="checkbox" /> N
+          </label>
+          <label class="checkbox">
+            <input id="{{ (grouped_voter+'UD') | replace(" ", "-") }}" {% if
+            (grouped_voter+'UD') | replace(" ", "-") in rr %} {% if
+            rr[((grouped_voter+'UD') | replace(" ", "-"))] == True %} {{
+            'checked' }} {% endif %} {% endif %} type="checkbox" /> UD
+          </label>
+          <label class="checkbox">
+            <input id="{{ (grouped_voter+'Sign') | replace(" ", "-") }}" {% if
+            (grouped_voter+'Sign') | replace(" ", "-") in rr %} {% if
+            rr[((grouped_voter+'Sign') | replace(" ", "-"))] == True %} {{
+            'checked' }} {% endif %} {% endif %} type="checkbox" /> Sign
+          </label>
+</div>
         {% for voter in grouped_voters[grouped_voter] %}
         <div class="card-content px-6">
           <div class="media">
@@ -71,77 +96,35 @@
               <li>District: {{ voter[61] or 'N/A'}}</li>
             </ul>
             <time datetime="2016-1-1"> {{ dt }} </time>
-            <footer class="card-footer has-background-link">
-              <a
-                href="/search/voter/{{ voter[0] }}"
-                class="card-footer-item has-text-primary-light"
-                >Read More About {{ voter[5] }} {{ voter[6] }} {{ voter[4] }}</a
-              >
-            </footer>
           </div>
+        </div>
+          <footer class="card-footer has-background-link">
+            <a
+              href="/search/voter/{{ voter[0] }}"
+              class="card-footer-item has-text-primary-light">Read More About {{ voter[5] }} {{ voter[6] }} {{ voter[4] }}</a>
+          </footer>
           {% endfor %}
-        </div>
-        <div class="content">
-          <label class="checkbox">
-            <input id="{{ (grouped_voter+'Y') | replace(" ", "-") }}"
-            {% if (grouped_voter+'Y') | replace(" ", "-") in rr %}
-              {% if rr[((grouped_voter+'Y') | replace(" ", "-"))] == True %}
-                {{ 'checked' }}
-              {% endif %}
-            {% endif %}
-            type="checkbox" /> Y
-          </label>
-          <label class="checkbox">
-            <input id="{{ (grouped_voter+'NH') | replace(" ", "-") }}"
-            {% if (grouped_voter+'NH') | replace(" ", "-") in rr %}
-              {% if rr[((grouped_voter+'NH') | replace(" ", "-"))] == True %}
-                {{ 'checked' }}
-              {% endif %}
-            {% endif %}
-            type="checkbox" /> NH
-          </label>
-          <label class="checkbox">
-            <input id="{{ (grouped_voter+'L') | replace(" ", "-") }}"
-            {% if (grouped_voter+'L') | replace(" ", "-") in rr %}
-            {% if rr[((grouped_voter+'L') | replace(" ", "-"))] == True %}
-              {{ 'checked' }}
-            {% endif %}
-          {% endif %}
-            type="checkbox" /> Lawn
-          </label>
-          <label class="checkbox">
-            <input id="{{ (grouped_voter+'M') | replace(" ", "-") }}"
-            {% if (grouped_voter+'M') | replace(" ", "-") in rr %}
-            {% if rr[((grouped_voter+'M') | replace(" ", "-"))] == True %}
-              {{ 'checked' }}
-            {% endif %}
-          {% endif %}
-            type="checkbox" /> M
-          </label>
-        </div>
       </div>
       {% endfor %}
     </div>
     <script type="text/javascript">
       $("input").click(function () {
-        let id = $(this).attr("id")
+        let id = $(this).attr("id");
         $.ajax({
           url: "/search/voter/is_checked/" + id,
           type: "GET",
           dataType: "json",
           success: function (res) {
-            console.log('response: ' + res);
+            console.log("response: " + res);
           },
         });
       });
 
       $("#search-house-btn").click(function () {
         var house_number = $("#search-text").val();
-
         const elements = Array.from(
           document.querySelectorAll("p.card-header-title")
         );
-
         elements.find((el) => {
           if (el.textContent.includes(house_number)) {
             el.parentElement.scrollIntoView({
