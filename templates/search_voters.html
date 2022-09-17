@@ -1,142 +1,143 @@
 {% extends "base.html" %} {% block head%} {% endblock %} {% block content %}
 <div class="container">
-    <div class="col-md-12">
+  <div class="col-md-12">
+    <div class="control">
+      <input
+        id="search-text"
+        class="input is-focused"
+        type="text"
+        placeholder="Search House Number"
+      />
+    </div>
+    <div class="block">
       <div class="control">
-        <input
-          id="search-text"
-          class="input is-focused"
-          type="text"
-          placeholder="Search House Number"
-        />
-      </div>
-      <div class="block">
-        <div class="control">
-          <div class="has-text-centered mb-50">
-            <button
-              type="button"
-              id="search-house-btn"
-              class="button is-primary is-large is-rounded"
-            >
-              <span class="icon">
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </span>
-              <span> Search House Number</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <p class="title is-1 is-centered">Street Name: {{ street_name }} Drive</p>
-      {% for grouped_voter in grouped_voters %}
-      <div class="card">
-        <header class="card-header has-background-primary">
-          <p class="card-header-title">{{ grouped_voter }}</p>
-          <button class="card-header-icon" aria-label="more options">
+        <div class="has-text-centered mb-50">
+          <button
+            type="button"
+            id="search-house-btn"
+            class="button is-primary is-large is-rounded"
+          >
             <span class="icon">
-              <i class="fas fa-angle-down" aria-hidden="true"></i>
+              <i class="fa-solid fa-magnifying-glass"></i>
             </span>
+            <span> Search House Number</span>
           </button>
-        </header>
-        <div class="content">
-          <label class="checkbox">
-            <input id="{{ (grouped_voter+'Y') | replace(" ", "-") }}" {% if
-            (grouped_voter+'Y') | replace(" ", "-") in rr %} {% if
-            rr[((grouped_voter+'Y') | replace(" ", "-"))] == True %} {{
-            'checked' }} {% endif %} {% endif %} type="checkbox" /> Y
-          </label>
-          <label class="checkbox">
-            <input id="{{ (grouped_voter+'N') | replace(" ", "-") }}" {% if
-            (grouped_voter+'N') | replace(" ", "-") in rr %} {% if
-            rr[((grouped_voter+'N') | replace(" ", "-"))] == True %} {{
-            'checked' }} {% endif %} {% endif %} type="checkbox" /> N
-          </label>
-          <label class="checkbox">
-            <input id="{{ (grouped_voter+'UD') | replace(" ", "-") }}" {% if
-            (grouped_voter+'UD') | replace(" ", "-") in rr %} {% if
-            rr[((grouped_voter+'UD') | replace(" ", "-"))] == True %} {{
-            'checked' }} {% endif %} {% endif %} type="checkbox" /> UD
-          </label>
-          <label class="checkbox">
-            <input id="{{ (grouped_voter+'Sign') | replace(" ", "-") }}" {% if
-            (grouped_voter+'Sign') | replace(" ", "-") in rr %} {% if
-            rr[((grouped_voter+'Sign') | replace(" ", "-"))] == True %} {{
-            'checked' }} {% endif %} {% endif %} type="checkbox" /> Sign
-          </label>
-</div>
-        {% for voter in grouped_voters[grouped_voter] %}
-        <div class="card-content px-6">
-          <div class="media">
-            <div class="media-left">
-              <figure class="image is-48x48">
-                {% if voter[38] %} {% if 'Dem' in voter[38] %}
-                <img src="/static/img/democrat.png" alt="Placeholder image" />
-                {% elif 'Rep' in voter[38] %}
-                <img src="/static/img/republican.png" alt="Placeholder image" />
-                {% else %}
-                <img
-                  src="https://bulma.io/images/placeholders/96x96.png"
-                  alt="Placeholder image"
-                />
-                {% endif %} {% endif %}
-              </figure>
-            </div>
-            <div class="media-content">
-              <p class="title is-4">
-                {{ voter[5] }} {{ voter[6] }} {{ voter[4] }}
-              </p>
-              <p class="subtitle is-6">{{ voter[9] }}</p>
-            </div>
-          </div>
+        </div>
+      </div>
+    </div>
 
-          <div class="content">
-            <ul>
-              <li>Plotical Party: {{ voter[38] or 'N/A'}}</li>
-              <li>Phone: {{ voter[25] or 'N/A'}}</li>
-              <li>Email: {{ voter[26] or 'N/A'}}</li>
-              <li>District: {{ voter[61] or 'N/A'}}</li>
-            </ul>
-            <time datetime="2016-1-1"> {{ dt }} </time>
+    <p class="title is-1 is-centered">Street Name: {{ street_name }} Drive</p>
+    {% for grouped_voter in grouped_voters %}
+    <div class="card">
+      <header class="card-header has-background-primary">
+        <p class="card-header-title">{{ grouped_voter }}</p>
+        <button class="card-header-icon" aria-label="more options">
+          <span class="icon">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </button>
+      </header>
+      <div class="content">
+        <label class="checkbox">
+          <input id="{{ (grouped_voter+'Y') | replace(" ", "-") }}" {% if
+          (grouped_voter+'Y') | replace(" ", "-") in rr %} {% if
+          rr[((grouped_voter+'Y') | replace(" ", "-"))] == True %} {{ 'checked'
+          }} {% endif %} {% endif %} type="checkbox" /> Y
+        </label>
+        <label class="checkbox">
+          <input id="{{ (grouped_voter+'N') | replace(" ", "-") }}" {% if
+          (grouped_voter+'N') | replace(" ", "-") in rr %} {% if
+          rr[((grouped_voter+'N') | replace(" ", "-"))] == True %} {{ 'checked'
+          }} {% endif %} {% endif %} type="checkbox" /> N
+        </label>
+        <label class="checkbox">
+          <input id="{{ (grouped_voter+'UD') | replace(" ", "-") }}" {% if
+          (grouped_voter+'UD') | replace(" ", "-") in rr %} {% if
+          rr[((grouped_voter+'UD') | replace(" ", "-"))] == True %} {{ 'checked'
+          }} {% endif %} {% endif %} type="checkbox" /> UD
+        </label>
+        <label class="checkbox">
+          <input id="{{ (grouped_voter+'Sign') | replace(" ", "-") }}" {% if
+          (grouped_voter+'Sign') | replace(" ", "-") in rr %} {% if
+          rr[((grouped_voter+'Sign') | replace(" ", "-"))] == True %} {{
+          'checked' }} {% endif %} {% endif %} type="checkbox" /> Sign
+        </label>
+      </div>
+      {% for voter in grouped_voters[grouped_voter] %}
+      <div class="card-content px-6">
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              {% if voter[38] %} {% if 'Dem' in voter[38] %}
+              <img src="/static/img/democrat.png" alt="Placeholder image" />
+              {% elif 'Rep' in voter[38] %}
+              <img src="/static/img/republican.png" alt="Placeholder image" />
+              {% else %}
+              <img
+                src="https://bulma.io/images/placeholders/96x96.png"
+                alt="Placeholder image"
+              />
+              {% endif %} {% endif %}
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">
+              {{ voter[5] }} {{ voter[6] }} {{ voter[4] }}
+            </p>
+            <p class="subtitle is-6">{{ voter[9] }}</p>
           </div>
         </div>
-          <footer class="card-footer has-background-link">
-            <a
-              href="/search/voter/{{ voter[0] }}"
-              class="card-footer-item has-text-primary-light">Read More About {{ voter[5] }} {{ voter[6] }} {{ voter[4] }}</a>
-          </footer>
-          {% endfor %}
+
+        <div class="content">
+          <ul>
+            <li>Plotical Party: {{ voter[38] or 'N/A'}}</li>
+            <li>Phone: {{ voter[25] or 'N/A'}}</li>
+            <li>Email: {{ voter[26] or 'N/A'}}</li>
+            <li>District: {{ voter[61] or 'N/A'}}</li>
+          </ul>
+          <time datetime="2016-1-1"> {{ dt }} </time>
+        </div>
       </div>
+      <footer class="card-footer has-background-link">
+        <a
+          href="/search/voter/{{ voter[0] }}"
+          class="card-footer-item has-text-primary-light"
+          >Read More About {{ voter[5] }} {{ voter[6] }} {{ voter[4] }}</a
+        >
+      </footer>
       {% endfor %}
     </div>
-    <script type="text/javascript">
-      $("input").click(function () {
-        let id = $(this).attr("id");
-        $.ajax({
-          url: "/search/voter/is_checked/" + id,
-          type: "GET",
-          dataType: "json",
-          success: function (res) {
-            console.log("response: " + res);
-          },
-        });
-      });
-
-      $("#search-house-btn").click(function () {
-        var house_number = $("#search-text").val();
-        const elements = Array.from(
-          document.querySelectorAll("p.card-header-title")
-        );
-        elements.find((el) => {
-          if (el.textContent.includes(house_number)) {
-            el.parentElement.scrollIntoView({
-              behavior: "smooth",
-              block: "center",
-              inline: "nearest",
-            });
-            el.parentElement.classList.add("has-background-danger");
-          }
-        });
-      });
-    </script>
-    {% endblock %}
+    {% endfor %}
   </div>
 </div>
+<script type="text/javascript">
+  $("input").click(function () {
+    let id = $(this).attr("id");
+    $.ajax({
+      url: "/search/voter/is_checked/" + id,
+      type: "GET",
+      dataType: "json",
+      success: function (res) {
+        console.log("response: " + res);
+      },
+    });
+  });
+
+  $("#search-house-btn").click(function () {
+    var house_number = $("#search-text").val();
+    const elements = Array.from(
+      document.querySelectorAll("p.card-header-title")
+    );
+    elements.find((el) => {
+      if (el.textContent.includes(house_number)) {
+        el.parentElement.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "nearest",
+        });
+        el.parentElement.classList.add("has-background-danger");
+      }
+    });
+  });
+</script>
+{% endblock %}
