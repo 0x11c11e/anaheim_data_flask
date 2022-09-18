@@ -3,6 +3,8 @@ import pickle
 import uuid
 from datetime import datetime
 import collections
+from datetime import date
+from datetime import datetime
 
 from flask import Flask, render_template, session
 from flask_session import Session
@@ -107,6 +109,13 @@ def get_uuid():
 
     return str(uuid.UUID(int=uuid.getnode()))
 
+@app.context_processor
+def utility_processor():
+    def calculate_age(born):
+        date_obj = datetime.strptime(born, '%m/%d/%Y')
+        today = date.today()
+        return today.year - date_obj.year - ((today.month, today.day) < (date_obj.month, date_obj.day))
+    return dict(calculate_age=calculate_age)
 
 if __name__ == '__main__':
     port = 80
