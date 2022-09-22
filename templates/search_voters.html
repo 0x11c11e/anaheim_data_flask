@@ -62,6 +62,10 @@
           rr[((grouped_voter+'Sign') | replace(" ", "-"))] == True %} {{
           'checked' }} {% endif %} {% endif %} type="checkbox" /> Sign
         </label>
+        <div class="container container-max-width">
+          <textarea class="textarea" id="note_content" placeholder="Note">{{ note_content }}</textarea>
+          <button class="button">Save Note</button>
+        </div>
       </div>
       {% for voter in grouped_voters[grouped_voter] %}
       <div class="card-content px-6">
@@ -140,6 +144,8 @@
         el.parentElement.classList.add("has-background-danger");
       }
     });
+
+    $("#note_content").val("");
   });
 </script>
 {% endblock %}
